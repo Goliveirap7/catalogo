@@ -1,29 +1,6 @@
-const express = require('express');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const router = express.Router();
-
-// Usuario de prueba (puedes luego guardarlo en una base de datos)
-const adminUser = {
-    username: "admin",
-    password: bcrypt.hashSync("123456", 10) // Encripta la contraseña
-};
-
-router.post('/login', (req, res) => {
-    const { username, password } = req.body;
-
-    if (username !== adminUser.username || !bcrypt.compareSync(password, adminUser.password)) {
-        return res.status(401).json({ message: "Credenciales incorrectas" });
-    }
-
-    // Crear token
-    const token = jwt.sign({ role: "admin" }, "secreto_super_seguro", { expiresIn: "1h" });
-
-    res.json({ token });
-});
-
-module.exports = router;
-
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 const cors = require("cors");
 require("dotenv").config();
 
@@ -31,16 +8,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Importar rutas y middleware
+// Usuario de prueba (puedes luego guardarlo en una base de datos)
+const adminUser = {
+    username: "admin",
+    password: bcrypt.hashSync("123456", 10), // Encripta la contraseña
+};
+
+// Importar y usar rutas adicionales
 const authRoutes = require("./src/routes/auth.routes");
-const verificarToken = require("./src/middlewares/auth.middleware");
 
-// Rutas
-app.use("/api/auth", authRoutes);
+// Usar las rutas con el prefijo "/api/puerta45"
+app.use("/api/puerta45", authRoutes); // Las rutas serán "/api/puerta45/login", "/api/puerta45/me", "/api/puerta45/protegido"
 
-// Ruta protegida (ejemplo: subida de CSV)
-app.post("/api/subir-csv", verificarToken, (req, res) => {
-    res.json({ message: "Archivo subido con éxito" });
+// Ruta principal para probar si el servidor responde
+app.get("/", (req, res) => {
+    res.send("Servidor funcionando correctamente.");
 });
 
 // Iniciar servidor
@@ -48,3 +30,5 @@ const PORT = 5000;
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+// Middleware para verificar el token

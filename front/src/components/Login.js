@@ -7,18 +7,37 @@ const Login = ({ setToken }) => {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        // Simulación de autenticación (esto vendrá del backend)
-        if (username === "admin" && password === "123456") {
-            const token = "fake-jwt-token";
-            const role = "admin"; // Aquí en producción vendría del backend
+        console.log("Username:", username);
+        console.log("Password:", password);
 
+        try {
+            const response = await fetch("http://localhost:5000/api/puerta45", {  // Cambié la URL aquí
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ username, password }),  // Asegúrate de enviar las credenciales en el cuerpo
+            });
+
+            if (!response.ok) {
+                throw new Error("Credenciales incorrectas");
+            }
+
+            const data = await response.json();
+            const token = data.token;
+            const role = data.role;
+
+            console.log("Token recibido:", token); // Asegúrate de que el token sea recibido
+
+            // Guardar el token en el almacenamiento local y en el estado
             localStorage.setItem("token", token);
             localStorage.setItem("role", role);
 
             setToken(token);
             window.location.href = "/admin"; // Redirige a la página de admin
-        } else {
+        } catch (error) {
             alert("Usuario o contraseña incorrectos");
+            console.error("❌ Error de autenticación:", error);
         }
     };
 

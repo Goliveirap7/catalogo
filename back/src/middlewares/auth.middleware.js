@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+require("dotenv").config();  // Cargar variables de entorno
 
-function verificarToken(req, res, next) {
+const verificarToken = (req, res, next) => {
     const token = req.headers["authorization"];
 
     if (!token) {
-        return res.status(403).json({ message: "Acceso denegado" });
+        return res.status(403).json({ message: "Token requerido" });
     }
 
     try {
@@ -13,15 +13,8 @@ function verificarToken(req, res, next) {
         req.user = decoded;
         next();
     } catch (error) {
-        return res.status(401).json({ message: "Token inválido" });
+        return res.status(401).json({ message: "Token inválido o expirado" });
     }
-}
+};
 
-function verificarAdmin(req, res, next) {
-    if (!req.user || req.user.role !== "admin") {
-        return res.status(403).json({ message: "Acceso denegado. Se requieren permisos de administrador." });
-    }
-    next();
-}
-
-module.exports = { verificarToken, verificarAdmin };
+module.exports = { verificarToken };
