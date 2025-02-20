@@ -1,0 +1,93 @@
+/* Estilo del contenedor del login */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-form h2 {
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-group input {
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-btn {
+    font-family: 'Poppins', sans-serif;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    background-color: #f4f4f4;
+}
+
+.login-form {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 35px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 7px;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background-color: #222;
+    color: #fff;
+    font-size: 16px;
+    transition: transform 0.2s ease; /* Agrega transiciones */
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #ff6347; /* Color al enfocar */
+    transform: scale(1.05); /* Efecto de rebote en el foco */
+}
+
+.input-group input:hover {
+    background-color: #222527a6; /* Color de hover */
+    transform: scale(1.05); /* Efecto de rebote al pasar el cursor */
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 50px;
+    background-color: #ff6347; /* Color del botón */
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transición para el botón */
+}
+
+.login-btn:hover {
+    background-color: #53210f; /* Color de hover */
+    transform: scale(1.05); /* Efecto de rebote al pasar el cursor sobre el botón */
+}
+
+/* Estilo para el checkbox "Mostrar contraseña" */
+.checkbox-group {
+    margin-top: 5px;
+    margin-bottom: 20px; /* Ajusta este valor según lo necesario */
+}
+
+.checkbox-group label {
+    font-size: 14px;
+    color: #fff;
+    cursor: pointer /* Cambia el cursor al pasar por encima del checkbox */;
+}
